@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Render 方法</title>
+</head>
+<body>
+    <div id="root">你好</div>
+    <script>
+
+    //提供一个数据格式，通过 render 方法渲染到页面
+    /**
+     * obj 对象：数据格式
+     * root 挂载目标
+     */
+    const Render = (obj,root) => {
+        const el = document.createElement(obj.tag);
+        if(typeof obj.children === 'string'){
+            const text = document.createTextNode(obj.children);
+            el.appendChild(text)
+        }else if(obj.children){
+            obj.children.forEach((child)=>Render(child, el))
+        }
+        root.appendChild(el)
+    }
+
+    const data = {
+        tag: 'div',
+        children: [
+            {
+                tag: 'span',
+                children:'hello world'
+            }
+        ]
+    }
+    Render(data,document.body)
+
+    </script>
+</body>
+</html>
+
